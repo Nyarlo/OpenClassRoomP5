@@ -17,21 +17,21 @@ const slides = [
   }
 ];
 
-// Récupération des éléments HTML
+// HTML elements querry 
 const arrowLeft = document.querySelector('.arrow_left');
 const arrowRight = document.querySelector('.arrow_right');
 const bannerImg = document.querySelector('.banner-img');
 const tagLine = document.querySelector('#tagline');
 const dots = document.querySelector('.dots');
 
-// Définition des images et des taglines du diaporama
+// Define constants
 const images = slides.map(slide => `./assets/images/slideshow/${slide.image}`);
 const tagLines = slides.map(slide => slide.tagLine);
 
-// Définition de l'index courant de l'image
+// Define current image index
 let currentImageIndex = 0;
 
-// Fonction pour afficher l'image courante et sa tagline associée
+// Display tagline and image function
 function displayCurrentImage() {
   bannerImg.src = images[currentImageIndex];
   if(tagLine){
@@ -39,14 +39,14 @@ function displayCurrentImage() {
   }
 }
 
-// Fonction pour mettre à jour les indicateurs de diapositives
+// Display dots for the current images
 function updateDots() {
-  // Supprimer tous les indicateurs de diapositives existants
+  // First we delete every dot
   while (dots.firstChild) {
     dots.removeChild(dots.firstChild);
   }
 
-  // Ajouter un indicateur de diapositive pour chaque image
+  // Then we add a dot for every everyimage and a full dot for the current image
   for (let i = 0; i < images.length; i++) {
     const dot = document.createElement('span');
     dot.classList.add('dot');
@@ -57,29 +57,29 @@ function updateDots() {
   }
 }
 
-// Afficher l'image courante et mettre à jour les indicateurs de diapositives
+// Call to display
 displayCurrentImage();
 updateDots();
 
-// Ajouter des gestionnaires d'événements pour les clics sur les flèches
+// Adding even Listeners 
 arrowLeft.addEventListener('click', function () {
-  // Passer à l'image précédente dans la liste
+  // Image change on click
   currentImageIndex--;
   if (currentImageIndex < 0) {
     currentImageIndex = images.length - 1;
   }
-  // Afficher l'image courante et sa tagline associée, et mettre à jour les indicateurs de diapositives
+  // Display current image and update dot
   displayCurrentImage();
   updateDots();
 });
 
 arrowRight.addEventListener('click', function () {
-  // Passer à l'image suivante dans la liste
+  // Image change on click
   currentImageIndex++;
   if (currentImageIndex >= images.length) {
     currentImageIndex = 0;
   }
-  // Afficher l'image courante et sa tagline associée, et mettre à jour les indicateurs de diapositives
+  // Display current image and update dot
   displayCurrentImage();
   updateDots();
 });
